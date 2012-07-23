@@ -1,0 +1,3 @@
+[submodule "locale"]
+	path = Locale
+	url = git://github.com/croogo/locale.git
