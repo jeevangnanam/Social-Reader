@@ -1,9 +1,6 @@
-/app/Config
-/app/tmp
-/lib/Cake/Console/Templates/skel/tmp/
-/plugins
-/vendors
-/build
-/dist
-.DS_Store
-/tags
+tmp/*
+config/database.php
+app/tmp/*
+app/config/database.php
+!empty
+
