@@ -22,10 +22,10 @@ This app may share some of the article you read on this site.
 Maximum number of the articles per days is 
 
 <div class='imageHolder' style="margin-top:10px;">
-<select name="" id="" style="height:25px;width:45px;border:solid 1px #B4C9F1">
+<select name="changeGlobalShareNumber" id="changeGlobalShareNumber" rel="<?php echo $channelId; ?>" style="height:25px;width:45px;border:solid 1px #B4C9F1">
 
 <?php for($a =1; $a<4 ;$a++): ?>
-<option id="<?php echo $a; ?>"><?php echo $a; ?></option>
+<option id="<?php echo $a;?>" <?php if($globalShareLimitForTheChannel == $a) echo ' selected = \"selected\"';?>"><?php echo $a; ?></option>
 
 <?php endfor; ?>
 </select>

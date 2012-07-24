@@ -53,6 +53,17 @@ class ChannelsReader extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
+
+                'maxshareperday' => array(
+			'numeric' => array(
+				'rule' => array('numeric'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
 	);
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
@@ -168,5 +179,36 @@ class ChannelsReader extends AppModel {
                     }
             }
             return false;
+        }
+
+
+        function readCurrentPostShareLimit($facebook_id,$channel_id){
+
+                $this->recursive = -1;
+            if(isset($facebook_id) and isset($channel_id)){
+
+                 $readers = $this->find('first',array('conditions' => array('ChannelsReader.facebook_id' => $facebook_id, 'channel_id' => $channel_id)));
+
+                    if($readers != false and is_array($readers)){
+
+                       return $readers['ChannelsReader']['maxshareperday'];
+
+                    }
+
+            }
+            return false;
+        }
+
+
+        function setCurrentPostShareLimit($facebook_id,$channel_id,$newLimit){
+
+            if(isset($facebook_id) and isset($newLimit)){
+                    if($this->updateAll(array('maxshareperday' => $newLimit), array('ChannelsReader.facebook_id' => $facebook_id , 'channel_id' => $channel_id))){
+                        return true;
+                    }
+
+            }
+            return false;
+
         }
 }

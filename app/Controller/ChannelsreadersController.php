@@ -9,6 +9,12 @@ class ChannelsReadersController extends AppController {
 
 
 
+    function  beforeFilter() {
+        parent::beforeFilter();
+
+        $this->Auth->allow(array('setNewShareLimit','onOffGlobalSocialStatus','getCurrentPostShareLimit'));
+    }
+
 /**
  * admin_index method
  *
@@ -17,7 +23,21 @@ class ChannelsReadersController extends AppController {
 	public function index() {
 		
 	}
-	
+
+
+        public function setNewShareLimit(){
+        $this->autoRender = false;
+            $user = $this->Session->read('user');
+            $channelId =	$this->request->pass[0];
+            $limit =	$this->request->pass[1];
+
+            if($this->ChannelsReader->checkReaderExists($user['id'],$channelId) == false){
+
+                $this->ChannelsReader->addReader($user['id'], $channelId);
+            }
+            
+            $this->ChannelsReader->setCurrentPostShareLimit($user['id'],$channelId,$limit);
+        }
 	public function onOffGlobalSocialStatus(){
 		   $this->autoRender = false;
 		$user = $this->Session->read('user');
@@ -34,39 +54,18 @@ class ChannelsReadersController extends AppController {
 		
 		}
 
-/**
- * admin_view method
- *
- * @param string $id
- * @return void
- */
-	public function admin_view($id = null) {
-		$this->ChannelsReader->id = $id;
-		if (!$this->ChannelsReader->exists()) {
-			throw new NotFoundException(__('Invalid channels reader'));
-		}
-		$this->set('channelsReader', $this->ChannelsReader->read(null, $id));
-	}
 
-/**
- * admin_add method
- *
- * @return void
- */
-	public function admin_add() {
-		if ($this->request->is('post')) {
-			$this->ChannelsReader->create();
-			if ($this->ChannelsReader->save($this->request->data)) {
-				$this->Session->setFlash(__('The channels reader has been saved'));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The channels reader could not be saved. Please, try again.'));
-			}
-		}
-//		$readers = $this->ChannelsReader->Reader->find('list',array('fields' =>array('first_name' , 'last_name' ,'facebook_id')));
-//
-//		$channels = $this->ChannelsReader->Channel->find('list');
-//		$this->set(compact('readers', 'channels'));
-	}
+
+        public function getCurrentPostShareLimit(){
+
+                $user = $this->Session->read('user');
+
+		$channelId =	$this->request->pass[0];
+
+                return $this->ChannelsReader->readCurrentPostShareLimit($user['id'],$channelId);
+
+
+        }
+
 
 }

@@ -42,6 +42,29 @@ $.get("/feedsocialsettings/onoffsocial/"+ $(this).attr('rel'), function(data){
 });
 
 
+$("#changeGlobalShareNumber").change(function(){
+
+	loadLoader('.showStatus');
+	var thisObj = $(this);
+	var channelId = $(this).attr('rel');
+
+
+	$.get("/channelsreaders/setNewShareLimit/"+channelId+"/"+ $(this).val(), function(data){
+
+    if(data == 0){
+
+      thisObj.attr({src: "/appproperties/"+layout+"/img/off.png"});
+    }else{
+
+       thisObj.attr({src: "/appproperties/"+layout+"/img/on.png"});
+    }
+	removeLoader('.showStatus');
+});
+
+
+
+	});
+
 
 $("#changeGlobalSocialVisibility").click(function(){
 	
@@ -109,6 +132,10 @@ $.get("/feedrecords/shareit/"+ $(this).attr('rel'), function(data){
 
 
 });
+
+
+
+
 
 function showLightBox(data){
 $.facebox(data)

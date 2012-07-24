@@ -8,10 +8,12 @@ App::uses('AppController', 'Controller');
 class FeedrecordsController extends AppController {
 
 
-    public $uses = array('Reader','Feedrecord','Feedsocialsetting','Channel');
-
+    public $uses = array('Reader','Feedrecord','Feedsocialsetting','Channel','ChannelsReader');
+    var $ChannelsReader;
+    
      public function beforeFilter(){
-         
+         App::import('Model', 'ChannelsReader');
+	$this->ChannelsReader = new ChannelsReader();
          parent::beforeFilter();
      }
 /**
@@ -77,8 +79,21 @@ class FeedrecordsController extends AppController {
 		if (!$this->Feedrecord->exists()) {
 			throw new NotFoundException(__('Invalid feedrecord'));
 		}
-		$this->set('feedrecord', $this->Feedrecord->read(null, $id));               
-                $this->set('socialOn',  $this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id']));
+
+                $feedrecordProperty = $this->Feedrecord->read(null, $id);
+		$this->set('feedrecord', $feedrecordProperty);
+
+                $globalSocialVisibilityStatus = $this->ChannelsReader->checkCurrentSocialStatusForChannel($user['id'],$feedrecordProperty['Feed']['channel_id']);
+                
+                if($globalSocialVisibilityStatus === false){
+                    $this->set('socialOn',  false);
+                    
+
+                }else{
+               // die(debug($this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id'])));
+                   $this->set('socialOn',  $this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id']));
+                }
+                
                 $this->set('user',$user['id']);
                 
 	}
@@ -86,11 +101,14 @@ class FeedrecordsController extends AppController {
 
         public function shareit(){
 
+			
                 $user = $this->Session->read('user');
                 $this->autoRender = false;
 
                 $id = $this->request->pass[0];
 
+
+if($this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id'] === 1) or  $this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id'] === false)){
                 if(isset($id)){
 
                     $this->Feedrecord->recursive = -1;
@@ -111,7 +129,7 @@ class FeedrecordsController extends AppController {
                         echo json_encode($data);
                     }
                 }
-            
+}
         }
 
         public function onOffSocial($id){

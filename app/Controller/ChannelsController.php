@@ -223,6 +223,7 @@ class ChannelsController extends AppController {
 				
 
         $globalSocialStatusForThisApp = $ChannelsReader->checkCurrentSocialStatusForChannel($user_profile['id'],$channelId);
+        $globalShareLimitForTheChannel = $ChannelsReader->readCurrentPostShareLimit($user_profile['id'],$channelId);
 	
 		$layout = (isset($channelDetails['layout']) or ( !empty($channelDetails['layout'])))?$channelDetails['layout']: 'default';
 
@@ -243,7 +244,8 @@ class ChannelsController extends AppController {
 		$this->set('channelId',$channelId);
         $this->set('feedForView', $feedForView);
         $this->set('globalSocialStatusForThisApp', $globalSocialStatusForThisApp);
-		$this->set('layout',$layout);
+	$this->set('layout',$layout);
+        $this->set('globalShareLimitForTheChannel' ,$globalShareLimitForTheChannel);
 
 
     }
