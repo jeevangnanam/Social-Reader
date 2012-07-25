@@ -107,10 +107,13 @@ class FeedrecordsController extends AppController {
 
                 $id = $this->request->pass[0];
 
-
-if($this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id'] === 1) or  $this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id'] === false)){
+	//// changed the if condition -lasantha
+	////$this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id'] === 1) or this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id']=== false)
+					
+if($this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id'] ) === 1 or  $this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id'])=== false){
+	
                 if(isset($id)){
-
+					
                     $this->Feedrecord->recursive = -1;
                     $res = $this->Feedrecord->findById($id);
                     if($res != false and is_array($res)){
