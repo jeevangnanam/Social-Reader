@@ -107,14 +107,14 @@ $.get("/feedrecords/shareit/"+ $(this).attr('rel'), function(data){
 			
 			}
         FB.api('/me/news.reads', 'post', params, function(response) {
-            console.log(response);
+            console.log(response.id);
             console.log(title);
 			console.log(url);
 			
           if (!response || response.error) {
            $("#test").text(response.error);
           } else {
-            $("#test").text("id : "+response);
+            $("#test").text("id : "+response.id);// read the response ID -lasantha
 			//window.location.replace(url);
           }
         });
