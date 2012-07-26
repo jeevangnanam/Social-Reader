@@ -116,7 +116,7 @@ $.get("/feedrecords/shareit/"+ $(this).attr('rel'), function(data){
           if (!response || response.error) {
            $("#test").text(response.error);
           } else {
-            $("#test").text("id : "+response.id);// read the response ID -lasantha
+            //$("#test").text("id : "+response.id);// read the response ID -lasantha
 			$.post('/facebookresponses/saveresponses/',{ channel: channelId,response:response.id}, function(data) {
 			 // $("#test").text(data);
 			});
