@@ -98,8 +98,6 @@ class Feedsocialsetting extends AppModel {
 
                 return false;
         }
-
-
         
 }
 
