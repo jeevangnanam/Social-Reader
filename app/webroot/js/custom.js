@@ -91,10 +91,12 @@ $("#changeGlobalSocialVisibility").click(function(){
 $(document).bind('reveal.facebox', function() {
 $("#shareIt").click(function(){
 var shareIt = $(this);
-
+var channelId=$(this).attr('rel');
 $.get("/feedrecords/shareit/"+ $(this).attr('rel'), function(data){
 
-
+		if(data==null){
+			return false;	
+		}
         var title = data.title;
         var url   = data.url;
         var image = data.image;
@@ -107,14 +109,17 @@ $.get("/feedrecords/shareit/"+ $(this).attr('rel'), function(data){
 			
 			}
         FB.api('/me/news.reads', 'post', params, function(response) {
-            console.log(response.id);
+            /*console.log(response.id);
             console.log(title);
-			console.log(url);
+			console.log(url);*/
 			
           if (!response || response.error) {
            $("#test").text(response.error);
           } else {
             $("#test").text("id : "+response.id);// read the response ID -lasantha
+			$.post('/facebookresponses/saveresponses/',{ channel: channelId,response:response.id}, function(data) {
+			 // $("#test").text(data);
+			});
 			//window.location.replace(url);
           }
         });
