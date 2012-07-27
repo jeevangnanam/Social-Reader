@@ -29,3 +29,6 @@ foreach($feedForView as $thisFeedProperties){
 <div id="preRouteBox">
     some text
 </div>
+<script>
+	checkLikes('<?php echo $likes;?>','<?php echo $channelId;?>');
+</script>

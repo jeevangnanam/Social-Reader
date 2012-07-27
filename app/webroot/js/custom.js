@@ -90,6 +90,7 @@ $("#changeGlobalSocialVisibility").click(function(){
 
 $(document).bind('reveal.facebox', function() {
 $("#shareIt").click(function(){
+
 var shareIt = $(this);
 var channelId=$(this).attr('rel');
 $.get("/feedrecords/shareit/"+ $(this).attr('rel'), function(data){
@@ -108,10 +109,10 @@ $.get("/feedrecords/shareit/"+ $(this).attr('rel'), function(data){
 			var params =  { title: title, article : url, image: image };
 			
 			}
-        FB.api('/me/news.reads', 'post', params, function(response) {
-            /*console.log(response.id);
+        FB.api('/me/adanews:preview', 'post', params, function(response) {
+            console.log(response);
             console.log(title);
-			console.log(url);*/
+			console.log(url);
 			
           if (!response || response.error) {
            $("#test").text(response.error);
@@ -156,3 +157,11 @@ function loadLoader(onThisPlace){
 function removeLoader(fronThisPlace){
 	$(fronThisPlace).html("");
 	}
+	
+function checkLikes(likes,pageid){
+	if(likes==0){
+		$.get("/channels/chaecklikes/"+pageid, function(data){
+			showLightBox(data);
+		});	
+	}
+}

@@ -124,9 +124,16 @@ class FeedrecordsController extends AppController {
 			
 			 //echo $this->Facebookresponse->checkMaxSharingLimit((int)$channelDetails['id'],$user['id'],$today);	
 			//echo $r[0][0]['count'];
+			$ms=$this->ChannelsReader->find('all',array('fields'=>array('ChannelsReader.maxshareperday'),'conditions' => array('ChannelsReader.channel_id' => (int)$channelDetails['id'],'ChannelsReader.facebook_id' => $user['id'])));
+
+			$maxShare=$ms[0]['ChannelsReader']['maxshareperday'];
+			if($maxShare == 0){
+				$maxShare=3;
+			}
+			
 if($this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id'] ) === 1 or  $this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id'])=== false ){
 	
-                if(isset($id) and (int)$r[0][0]['count'] < 3){
+                if(isset($id) and (int)$r[0][0]['count'] < $maxShare){
 					
                     $this->Feedrecord->recursive = -1;
                     $res = $this->Feedrecord->findById($id);

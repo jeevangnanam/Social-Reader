@@ -28,6 +28,7 @@ class ChannelsController extends AppController {
     var $cacheAction = array(
         'index/' => '60000'
     );
+	
     /**
      * Components
      *
@@ -46,7 +47,7 @@ class ChannelsController extends AppController {
      * @access public
      */
     public $uses = array('Channel', 'Reader', 'Feed', 'Feedrecord', 'ChannelsReader');
-
+	
     /**
      * beforeFilter
      *
@@ -54,7 +55,7 @@ class ChannelsController extends AppController {
      * @access public
      */
     public function beforeFilter() {
-        $this->Auth->allow('index');
+        $this->Auth->allow('index','chaeckLikes');
 
         $this->Security->validatePost = false;
         $this->Security->csrfCheck = false;
@@ -71,7 +72,7 @@ class ChannelsController extends AppController {
     public function index() {
 
         $this->cacheAction = true;
-
+		$fanpage_id="";
 
 		//import necessory models
 		//@TODO Find a suitable solution
@@ -203,7 +204,14 @@ class ChannelsController extends AppController {
 					}
 			}
         //Facebook stuff ends
+		
         //Load the feed details
+		$fanpage_id=$this->Channel->getFanPage($channelId);
+		$fanpage_id=$fanpage_id[0]['Channel']['fanpage_id'];
+		$lk=$facebook->api('/me/likes/'.$fanpage_id);
+		
+		$likes = count($lk['data']);
+		
         $this->Feed->recursive = -1;
         $feedList = $this->Feed->find('all', array('conditions' => array('Feed.status' => '1', 'channel_id' => $channelId)));
 
@@ -238,16 +246,20 @@ class ChannelsController extends AppController {
             Configure::write('Site.title', $channel['appname']);
             Configure::write('Site.tagline', $channel['appdescription']);
         }
-
+		
+		
+		/*if(){
+			
+		}*/
         # For view
 		
 		$this->set('channelId',$channelId);
         $this->set('feedForView', $feedForView);
         $this->set('globalSocialStatusForThisApp', $globalSocialStatusForThisApp);
-	$this->set('layout',$layout);
+		$this->set('layout',$layout);
         $this->set('globalShareLimitForTheChannel' ,$globalShareLimitForTheChannel);
-
-
+		$this->set('userProfile', $user_profile);
+		$this->set('likes',$likes);
     }
 
     function _giveFeedNames($feedList) {
@@ -264,5 +276,14 @@ class ChannelsController extends AppController {
         }
         return null;
     }
-
+	
+	function chaecklikes($pageid=NULL,$channelId=NULL){
+		$this->layout="ajax";
+		$channelId=$this->params['pass'][0];
+		$fanpage_id=$this->Channel->getFanPage($channelId);
+		$pageid=$fanpage_id[0]['Channel']['fanpage_id'];
+		$graph = json_decode(file_get_contents("https://graph.facebook.com/".$pageid));
+		$this->set("name",$fanpage_id[0]['Channel']['appname']);
+		$this->set("graph",$graph);
+	}
 }
