@@ -8,12 +8,15 @@ App::uses('AppController', 'Controller');
 class FeedrecordsController extends AppController {
 
 
-    public $uses = array('Reader','Feedrecord','Feedsocialsetting','Channel','ChannelsReader');
-    var $ChannelsReader;
-    
+    public $uses = array('Facebookresponse','Reader','Feedrecord','Feedsocialsetting','Channel','ChannelsReader');
+		var $ChannelsReader;
+		var $Facebookresponse;
+	
      public function beforeFilter(){
          App::import('Model', 'ChannelsReader');
-	$this->ChannelsReader = new ChannelsReader();
+		 $this->ChannelsReader = new ChannelsReader();
+		 App::import('Model', 'Facebookresponse');
+		 $this->Facebookresponse = new Facebookresponse();
          parent::beforeFilter();
      }
 /**
@@ -106,11 +109,32 @@ class FeedrecordsController extends AppController {
                 $this->autoRender = false;
 
                 $id = $this->request->pass[0];
+				$today=date('Y-m-d');
+	//// changed the if condition -lasantha
+	////$this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id'] === 1) or this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id']=== false)		 
+			
+			
+			$channelDetails = $this->Session->read('channelDetails');
+			if(!isset($channelDetails) or empty($channelDetails)) {
+                $res = $this->Feedrecord->find('all',array('conditions' => array('Feedrecord.id' => $id)));
+				$channelDetails= ($res[0]['Feed']['channel_id']);
+			 }
+			//echo $this->Facebookresponse->find('count',array('conditions' => array('Facebookresponse.channel_id' => (int)$channelDetails['id'],'Facebookresponse.facebook_id' => $user['id'],"date(Facebookresponse.read)" => $today)));
+			$r= $this->Feedrecord->query("SELECT Count(*) AS count from facebookresponses where channel_id= ".(int)$channelDetails['id']." AND  facebook_id =".$user['id']." AND date(`read`) ='".$today."'");
+			
+			 //echo $this->Facebookresponse->checkMaxSharingLimit((int)$channelDetails['id'],$user['id'],$today);	
+			//echo $r[0][0]['count'];
+			$ms=$this->ChannelsReader->find('all',array('fields'=>array('ChannelsReader.maxshareperday'),'conditions' => array('ChannelsReader.channel_id' => (int)$channelDetails['id'],'ChannelsReader.facebook_id' => $user['id'])));
 
-
-if($this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id'] === 1) or  $this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id'] === false)){
-                if(isset($id)){
-
+			$maxShare=$ms[0]['ChannelsReader']['maxshareperday'];
+			if($maxShare == 0){
+				$maxShare=3;
+			}
+			
+if($this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id'] ) === 1 or  $this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id'])=== false ){
+	
+                if(isset($id) and (int)$r[0][0]['count'] < $maxShare){
+					
                     $this->Feedrecord->recursive = -1;
                     $res = $this->Feedrecord->findById($id);
                     if($res != false and is_array($res)){

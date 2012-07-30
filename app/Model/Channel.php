@@ -195,5 +195,8 @@ class Channel extends AppModel {
 			'insertQuery' => ''
 		)
 	);
-
+	
+	public function getFanPage($id){
+		return $this->find('all',array('fileds'=>array('fanpage_id','appname'),'conditions'=>array('id'=>$id)));
+	}
 }

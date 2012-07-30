@@ -156,3 +156,11 @@ function loadLoader(onThisPlace){
 function removeLoader(fronThisPlace){
 	$(fronThisPlace).html("");
 	}
+	
+function checkLikes(likes,pageid){
+	if(likes==0){
+		$.get("/channels/chaecklikes/"+pageid, function(data){
+			showLightBox(data);
+		});	
+	}
+}
