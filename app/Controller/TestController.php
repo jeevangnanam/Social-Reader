@@ -24,10 +24,14 @@ class TestController extends AppController {
     /**
      * Helpers
      */
+	 
+	 public function beforeFilter(){
+
+        			 parent::beforeFilter();
+		 			$this->Auth->allow('index');
+     		}
    function index(){
-	   $this->layout ='test';
-	   $this->set('globalSocialStatusForThisApp',true);
-	   $this->set('layout','adaderana');
+	
 	   
 	   
 	   }

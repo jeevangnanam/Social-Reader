@@ -244,8 +244,9 @@ class ChannelsController extends AppController {
 		$this->set('channelId',$channelId);
         $this->set('feedForView', $feedForView);
         $this->set('globalSocialStatusForThisApp', $globalSocialStatusForThisApp);
-	$this->set('layout',$layout);
+		$this->set('layout',$layout);
         $this->set('globalShareLimitForTheChannel' ,$globalShareLimitForTheChannel);
+		$this->set('userProfile', $user_profile);
 
 
     }

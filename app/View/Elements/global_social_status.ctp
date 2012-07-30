@@ -13,7 +13,7 @@ if($globalSocialStatusForThisApp == true){
 		}
 ?>
 
-<p>Your Global Social Visibility   is </p><div class='imageHolder'><img src="/appproperties/<?php echo $layout; ?>/img/<?php echo $img; ?>"  id="changeGlobalSocialVisibility" rel="<?php echo $channelId; ?>" name="<?php echo $layout; ?>" /></div>
+<p><img src='http://graph.facebook.com/<?php echo $userProfile['id']?>/picture' width=25 height="25"/> Your Global Social Visibility   is </p><div class='imageHolder'><img src="/appproperties/<?php echo $layout; ?>/img/<?php echo $img; ?>"  id="changeGlobalSocialVisibility" rel="<?php echo $channelId; ?>" name="<?php echo $layout; ?>" /></div>
 
 </div>
 
