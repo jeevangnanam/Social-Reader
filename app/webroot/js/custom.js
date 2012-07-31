@@ -119,7 +119,7 @@ $.get("/feedrecords/shareit/"+ $(this).attr('rel'), function(data){
           } else {
             //$("#test").text("id : "+response.id);// read the response ID -lasantha
 			$.post('/facebookresponses/saveresponses/',{ channel: channelId,response:response.id}, function(data) {
-			 // $("#test").text(data);
+			 $("#r-shares").append(data);
 			});
 			//window.location.replace(url);
           }
@@ -145,7 +145,9 @@ $(".removepost").click(function(){
                        return false
                  } else {
                      $.post('/facebookresponses/daleteresponses/'+r_id, function(data) {
-					 
+						 if(data==1 || data==true){
+					 		$('#'+r_id+"_li").remove();
+						 }
 					});
                   }
      });
