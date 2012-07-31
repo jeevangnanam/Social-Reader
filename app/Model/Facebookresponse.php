@@ -43,6 +43,13 @@ class Facebookresponse extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
+		'Feed' => array(
+			'className' => 'Feed',
+			'foreignKey' => 'feed_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		)
 	);
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
@@ -53,9 +60,10 @@ class Facebookresponse extends AppModel {
  * @var array
  */
 	public $belongsTo = array(
-		'Facebook' => array(
-			'className' => 'Facebook',
-			'foreignKey' => 'facebook_id',
+
+		'Channel' => array(
+			'className' => 'Channel',
+			'foreignKey' => 'channel_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
@@ -66,16 +74,24 @@ class Facebookresponse extends AppModel {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
+		),
+		'Feedrecord' => array(
+			'className' => 'Feedrecord',
+			'foreignKey' => 'feedrecord_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
 		)
 	);
 	
-	public  function addFacebookResponse($facebook_id,$channel_id,$response){
+	public  function addFacebookResponse($facebook_id,$channel_id,$response,$feed_id){
 
             if(isset($facebook_id) and isset($channel_id) and isset($response)){
             $data = array('Facebookresponse' => array(
 				'response' => $response,
                 'facebook_id' => $facebook_id,
                 'channel_id'  => $channel_id,
+				'feedrecord_id'  => $feed_id,
 				'read' => date('Y-m-d h:m:s'),
 
             ));
@@ -89,4 +105,7 @@ class Facebookresponse extends AppModel {
 			'conditions' => array('Facebookresponse.channel_id' => $channelId,'Facebookresponse.facebook_id' => $facebook_id,"date(Facebookresponse.read)" => $date)));
 			
 		}
+	public function lastTenShares($id,$facebook_id){
+		return $this->find('all',array('fileds'=>array('Facebookresponse.response','Facebookresponse.feed_id','Feedrecord.title'),'limit'=>10));
+	}
 }

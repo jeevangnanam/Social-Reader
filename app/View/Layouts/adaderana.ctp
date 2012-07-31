@@ -65,7 +65,20 @@
                     <?php //echo $this->Layout->blocks('right'); ?>
                 </div>
 
+                <!--friend and like list-->
+                <div id="sidebar" class="grid_5">
+                   <?php echo $this->element('appusers'); ?>
+                    <?php //echo $this->Layout->blocks('right'); ?>
+                </div>
+                
+                 <!--Recent share list-->
+                <div id="sidebar" class="grid_5">
+                   <?php echo $this->element('recentshares'); ?>
+                    <?php //echo $this->Layout->blocks('right'); ?>
+                </div>
+                
                 <div class="clear"></div>
+                
             </div>
 
             <div id="footer">

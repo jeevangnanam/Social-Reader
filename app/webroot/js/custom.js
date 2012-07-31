@@ -135,7 +135,22 @@ $.get("/feedrecords/shareit/"+ $(this).attr('rel'), function(data){
 
 
 
-
+$(".removepost").click(function(){
+	var r_id=this.id;
+	FB.api(
+             r_id,
+               'delete',
+                function(response) {
+                 if (!response || response.error) {
+                       return false
+                 } else {
+                     $.post('/facebookresponses/daleteresponses/'+r_id, function(data) {
+					 
+					});
+                  }
+     });
+            
+});
 
 });
 

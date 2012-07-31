@@ -46,7 +46,7 @@ class ChannelsController extends AppController {
      * @var array
      * @access public
      */
-    public $uses = array('Channel', 'Reader', 'Feed', 'Feedrecord', 'ChannelsReader');
+    public $uses = array('Channel', 'Reader', 'Feed', 'Feedrecord', 'ChannelsReader','Facebookresponse');
 	
     /**
      * beforeFilter
@@ -80,7 +80,9 @@ class ChannelsController extends AppController {
 		App::import('Model', 'ChannelsReader');
 		$ChannelsReader = new ChannelsReader();
 				
-				
+		App::import('Model', 'Facebookresponse');
+		$Facebookresponse = new Facebookresponse();
+		//debug($Facebookresponse->lastTenShares()); 	
         if (!isset($this->request->pass[0])) {
             $this->log("Channel id is empty", 'debug');
             die('Channel id can not be empty');
@@ -248,9 +250,22 @@ class ChannelsController extends AppController {
         }
 		
 		
-		/*if(){
-			
-		}*/
+		// get the app users 
+		$channel_readers=$this->ChannelsReader->getAppInstalledUsers($channelId);
+		$arrayChannelReaders= array();
+		foreach($channel_readers as $channel_reader){
+			$arrayChannelReaders[]=$channel_reader['ChannelsReader']['facebook_id'];
+		}
+		$fList=array();
+		$friends=$facebook->api('/me/friends');
+		
+		foreach($friends['data'] as $friend){
+			$fList[]=$friend['id'];
+		}
+		$appUsersFriends=array_intersect($fList,$arrayChannelReaders);
+		$facebook_id=$facebook->api('/me');
+		$recentShares=$Facebookresponse->lastTenShares($channelId,$facebook_id['id']);
+		
         # For view
 		
 		$this->set('channelId',$channelId);
@@ -260,6 +275,9 @@ class ChannelsController extends AppController {
         $this->set('globalShareLimitForTheChannel' ,$globalShareLimitForTheChannel);
 		$this->set('userProfile', $user_profile);
 		$this->set('likes',$likes);
+		$this->set('appUsers',count($arrayChannelReaders));
+		$this->set('appUsersFriends',$appUsersFriends);
+		$this->set('recentShares',$recentShares);
     }
 
     function _giveFeedNames($feedList) {

@@ -211,4 +211,8 @@ class ChannelsReader extends AppModel {
             return false;
 
         }
+		
+		public function getAppInstalledUsers($id){
+			return $this->find('all',array('fileds'=>array('facebook_id'),'conditions'=>array('channel_id'=>$id)));
+		}
 }
