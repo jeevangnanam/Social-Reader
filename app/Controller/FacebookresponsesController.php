@@ -56,21 +56,48 @@ class FacebookresponsesController extends AppController {
 		$feed_id   = $channelId;
 		
 		$response =	$_POST['response'];
+		$feedRecord="";
 		$channelDetails = $this->Session->read('channelDetails');
 			if(!isset($channelDetails) or empty($channelDetails)) {
                            $res = $this->Feedrecord->find('all',array('conditions' => array('Feedrecord.id' => $id)));
 				 $channelDetails= ($res[0]['Feed']['Channel']);
+				 $feedRecord = ($res[0]['Feedrecord']['title']);
 			 }
 		$channelId=$channelDetails['id'];
-		$this->Facebookresponse->addFacebookResponse($user['id'], $channelId,$response,$feed_id);
+		
+		$sres=$this->Facebookresponse->addFacebookResponse($user['id'], $channelId,$response,$feed_id);
+		
+		if($sres){
+			echo "<li id=\"".$response."_li\"> $feedRecord <img id=\"". $response ."\" class=\"removepost\" alt=\"\" src=\"/img/remove-share-button.jpg\"></li>";
+		}
 	}
 	public function daleteresponses($response_id=NULL){
 		 $this->layout = 'ajax';
 		$this->autoRender = false;
 		$response_id=$this->params['pass'][0];
 		$id=$this->Facebookresponse->find('list',array('conditions'=>array('Facebookresponse.response'=>$response_id)));
+		$fResId;
+		foreach($id as $rId){
+			$fResId=$rId;
+		} 
+
+		$this->request->data['Facebookresponse']['id']=$fResId;
+		$this->request->data['Facebookresponse']['status']= 0;
+		 if(isset($id)){
+			 
+         $data=$this->request->data;
+
+			if($this->Facebookresponse->save($data)){
+				return true;
+			}
+			else{
+				return false;
+			}
+         }
+		 else{
+            return false;
+		 }
 		
-		$this->Facebookresponse->delete($id);
 	}
 	
 	
