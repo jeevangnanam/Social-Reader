@@ -93,7 +93,7 @@ class Facebookresponse extends AppModel {
                 'channel_id'  => $channel_id,
 				'feedrecord_id'  => $feed_id,
 				'read' => date('Y-m-d h:m:s'),
-
+				'status' => 1,
             ));
             return $this->save($data);
             }
@@ -106,6 +106,19 @@ class Facebookresponse extends AppModel {
 			
 		}
 	public function lastTenShares($id,$facebook_id){
-		return $this->find('all',array('fileds'=>array('Facebookresponse.response','Facebookresponse.feed_id','Feedrecord.title'),'limit'=>10));
+		return $this->find('all',array('fileds'=>array('Facebookresponse.response','Facebookresponse.feed_id','Feedrecord.title'),'conditions'=>array('Facebookresponse.status'=>1,'Facebookresponse.facebook_id'=>$facebook_id,'Facebookresponse.channel_id'),'limit'=>10));
 	}
+	
+	public  function deleteFacebookResponse($id){
+
+            if(isset($id)){
+            $data = array('Facebookresponse' => array(
+				'id'=>$id,
+				'status' => 0,
+            ));
+            return $this->save($data);
+            }
+            return false;
+            
+     }
 }
