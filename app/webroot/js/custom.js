@@ -110,9 +110,6 @@ $.get("/feedrecords/shareit/"+ $(this).attr('rel'), function(data){
 			
 			}
         FB.api('/me/adanews:preview', 'post', params, function(response) {
-            console.log(response);
-            console.log(title);
-			console.log(url);
 			
           if (!response || response.error) {
            $("#test").text(response.error);
@@ -136,7 +133,7 @@ $.get("/feedrecords/shareit/"+ $(this).attr('rel'), function(data){
 
 
 
-$(".removepost").click(function(){
+$(".removepost").live('click',function(){
 	var r_id=this.id;
 	FB.api(
              r_id,
