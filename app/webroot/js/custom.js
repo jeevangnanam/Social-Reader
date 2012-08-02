@@ -119,7 +119,8 @@ $.get("/feedrecords/shareit/"+ $(this).attr('rel'), function(data){
           } else {
             //$("#test").text("id : "+response.id);// read the response ID -lasantha
 			$.post('/facebookresponses/saveresponses/',{ channel: channelId,response:response.id}, function(data) {
-			 $("#r-shares").append(data);
+				var li="<li id=\""+response.id+"_li\">"+ title +"<img id=\""+ response.id +"\" class='removepost' alt='' src='/img/remove-share-button.jpg\'></li>";
+			 $("#r-shares").append(li);
 			});
 			//window.location.replace(url);
           }

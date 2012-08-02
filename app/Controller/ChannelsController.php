@@ -265,7 +265,8 @@ class ChannelsController extends AppController {
 		$appUsersFriends=array_intersect($fList,$arrayChannelReaders);
 		$facebook_id=$facebook->api('/me');
 		$recentShares=$Facebookresponse->lastTenShares($channelId,$facebook_id['id']);
-		
+		//debug($recentShares);
+		//die();
         # For view
 		
 		$this->set('channelId',$channelId);
@@ -277,7 +278,7 @@ class ChannelsController extends AppController {
 		$this->set('likes',$likes);
 		$this->set('appUsers',count($arrayChannelReaders));
 		$this->set('appUsersFriends',$appUsersFriends);
-		$this->set('recentShares',$recentShares);
+		$this->set('recentShares',$recentShares);/**/
     }
 
     function _giveFeedNames($feedList) {

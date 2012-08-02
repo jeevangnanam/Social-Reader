@@ -59,7 +59,8 @@ class FacebookresponsesController extends AppController {
 		$feedRecord="";
 		$channelDetails = $this->Session->read('channelDetails');
 			if(!isset($channelDetails) or empty($channelDetails)) {
-                           $res = $this->Feedrecord->find('all',array('conditions' => array('Feedrecord.id' => $id)));
+                 $res = $this->Feedrecord->find('all',array('conditions' => array('Feedrecord.id' => $id)));
+				 debug($res);
 				 $channelDetails= ($res[0]['Feed']['Channel']);
 				 $feedRecord = ($res[0]['Feedrecord']['title']);
 			 }
@@ -68,7 +69,7 @@ class FacebookresponsesController extends AppController {
 		$sres=$this->Facebookresponse->addFacebookResponse($user['id'], $channelId,$response,$feed_id);
 		
 		if($sres){
-			echo "<li id=\"".$response."_li\"> $feedRecord <img id=\"". $response ."\" class=\"removepost\" alt=\"\" src=\"/img/remove-share-button.jpg\"></li>";
+			echo true;
 		}
 	}
 	public function daleteresponses($response_id=NULL){

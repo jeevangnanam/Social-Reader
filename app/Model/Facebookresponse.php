@@ -106,7 +106,8 @@ class Facebookresponse extends AppModel {
 			
 		}
 	public function lastTenShares($id,$facebook_id){
-		return $this->find('all',array('fileds'=>array('Facebookresponse.response','Facebookresponse.feed_id','Feedrecord.title'),'conditions'=>array('Facebookresponse.status'=>1,'Facebookresponse.facebook_id'=>$facebook_id,'Facebookresponse.channel_id'),'limit'=>10));
+		return $this->find('all',array('conditions'=>array('Facebookresponse.facebook_id'=>$facebook_id,'Facebookresponse.channel_id'=>$id),'limit'=>10));
+		//'fileds'=>array('Facebookresponse.response','Facebookresponse.feed_id','Feedrecord.title'),'Facebookresponse.status'=>1,
 	}
 	
 	public  function deleteFacebookResponse($id){
