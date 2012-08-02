@@ -9,7 +9,12 @@
 			<img src="<?php echo $graph->picture;?>" />
 		</td>
 		<td valign="top">
-			Like Our Facebook Page <a href="<?php echo $graph->link;?>" target="_blank" ><?php echo $graph->name;?></a>
+        <p>Like our Facebook Page<br  /> 
+        <div class="fb-like" data-href="<?php echo $graph->link;?>" data-send="false" data-width="450" data-show-faces="true" data-font="verdana"></div>
+        </p>
+        <p>
+		Visit our Facebook Page<br  /> <a href="<?php echo $graph->link;?>" target="_blank" ><?php echo $graph->name;?></a>
+        </p>
 		</td>
 	</tr>
 </table >

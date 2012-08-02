@@ -8,7 +8,7 @@
 	<?php 
 		
 		foreach($recentShares as $key=>$recentShare){ 
-			echo "<li id=\"".$recentShare['Facebookresponse']['response']."_li\">".$recentShare['Feedrecord']['title'].$this->Html->Image('remove-share-button.jpg',array('class'=>'removepost',"id"=>$recentShare['Facebookresponse']['response']))."</li>";
+			echo "<li id=\"".$recentShare['Facebookresponse']['response']."_li\">".$recentShare['Feedrecord']['title'].$this->Html->Image('remove-share-button.jpg',array('class'=>'removepost',"id"=>$recentShare['Facebookresponse']['response'],'onclick'=>'removepost('.$recentShare['Facebookresponse']['response'].')'))."</li>";
 		}
 	?>
     </ul>
