@@ -1,7 +1,7 @@
 <div id="globalConfigurations">
 	<div class="headings">
 	Your recent shared news.
- 	<div class="showStatus"></div>
+ 	<div class="showStatusRecentShares"></div>
     
 	</div>
     <ul id="r-shares" style="padding:2px;">

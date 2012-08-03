@@ -134,17 +134,20 @@ $.get("/feedrecords/shareit/"+ $(this).attr('rel'), function(data){
 
 
 $(".removepost").live('click',function(){
+	loadLoader('.showStatusRecentShares');
 	var r_id=this.id;
 	FB.api(
              r_id,
                'delete',
                 function(response) {
                  if (!response || response.error) {
+					   removeLoader('.showStatusRecentShares');
                        return false
                  } else {
                      $.post('/facebookresponses/daleteresponses/'+r_id, function(data) {
 						 if(data==1 || data==true){
 					 		$('#'+r_id+"_li").remove();
+							removeLoader('.showStatusRecentShares');
 						 }
 					});
                   }

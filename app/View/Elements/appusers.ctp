@@ -1,7 +1,7 @@
 <div id="globalConfigurations">
 	<div class="headings">
 	<?php echo @$appUsers;?> AND <?php echo count(@$appUsersFriends);?> FRIEND(S) ARE USING
- 	<div class="showStatus"></div>
+ 	<div></div>
     
 	</div>
 	<?php 

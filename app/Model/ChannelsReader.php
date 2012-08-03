@@ -113,6 +113,7 @@ class ChannelsReader extends AppModel {
 
                 'facebook_id' => $facebook_id,
                 'channel_id'  => $channel_id,
+				'socialon'  => 1,
 
             ));
             return $this->save($data);

@@ -89,7 +89,7 @@ class Feedsocialsetting extends AppModel {
                 $this->recursive = -1;
                 $res = $this->find('first',array('conditions' => array('feedrecord_id' => $feedRecordId,'facebook_id' => $facebook_id)));
 
-                if($res === false)return null;
+                if($res === false)return true;
                 
                 if(is_array($res)){
                          return (int)$res['Feedsocialsetting']['on'];
