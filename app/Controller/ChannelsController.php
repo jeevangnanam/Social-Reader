@@ -224,7 +224,7 @@ class ChannelsController extends AppController {
             $feedForView[$counter]['feedId'] = $feed['Feed']['id'];
 
             $this->Feedrecord->recursive = -1;
-            $feedRecords = $this->Feedrecord->find('all', array('conditions' => array('feed_id' => $feed['Feed']['id'])));
+            $feedRecords = $this->Feedrecord->find('all', array('conditions' => array('feed_id' => $feed['Feed']['id']),'order'=>array('Feedrecord.id'=>'DESC')));
             $feedForView[$counter]['records'] = $feedRecords;
         }
 

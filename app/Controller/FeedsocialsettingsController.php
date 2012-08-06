@@ -120,7 +120,10 @@ class FeedsocialsettingsController extends AppController {
                 $this->autoRender = false;
            $this->RequestHandler->setContent('json', 'text/x-json');
              $statusCode = $this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($feedrecord_id,$facebook_id);
-
+			 //var_dump($statusCode."-s");
+			if($statusCode === "" or $statusCode === NULL){
+				$statusCode=2;
+			}
             $res =  $this->Feedsocialsetting->onOffSocial($statusCode,$feedrecord_id,$facebook_id);
          	 
             $this->set('socialOn',$res);

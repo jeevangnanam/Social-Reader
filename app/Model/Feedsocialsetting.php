@@ -74,11 +74,25 @@ class Feedsocialsetting extends AppModel {
 
                    $res =  $this->save($data);
                    return $res['Feedsocialsetting']['on'];
-                }else{
+                }
+				else if($statusCode === 2){
+					$data = array('Feedsocialsetting' => array(
+
+                        'feedrecord_id' => $feedRecordId,
+                        'facebook_id' => $facebook_id,
+                        'on' => 0
+                    ));
+
+                   $res =  $this->save($data);
+				  
+				    return 0;
+				}
+				else{
                 $statusCode = ($statusCode==1)?0:1;
                     if($this->updateAll(array('on' => $statusCode), array('feedrecord_id' => $feedRecordId , 'facebook_id' => $facebook_id))){
                         return $statusCode;
                     }
+					
                 }
 
             }
@@ -89,7 +103,7 @@ class Feedsocialsetting extends AppModel {
                 $this->recursive = -1;
                 $res = $this->find('first',array('conditions' => array('feedrecord_id' => $feedRecordId,'facebook_id' => $facebook_id)));
 
-                if($res === false)return true;
+                if($res === false)return null;
                 
                 if(is_array($res)){
                          return (int)$res['Feedsocialsetting']['on'];

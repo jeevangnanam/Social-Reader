@@ -13,7 +13,7 @@
                 <div id="preRouteToolBar" style="margin-top: 10px;padding-top:6px;border-top:solid 1px   #dee0e0">
                     <div id="visibleButtonHolder" style="float:left">
                         <p style="padding-bottom: 8px;float:left;">Your Social visibility for this article is&nbsp;&nbsp;</p>
-    <?php if($socialOn==true): ?>
+    <?php if($socialOn==true || $socialOn==NULL): ?>
 <img src="/img/icons/on_small.jpg"  rel="<?php echo $feedrecord['Feedrecord']['id']; ?>" class="changeFeedrecordSocialStatus" style="cursor:pointer"/>
                     <?php elseif($socialOn == false): ?>
 <img src="/img/icons/off_small.jpg" rel="<?php echo $feedrecord['Feedrecord']['id']; ?>" class="changeFeedrecordSocialStatus" style="cursor:pointer"/>
