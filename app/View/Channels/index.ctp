@@ -8,7 +8,7 @@ foreach($feedForView as $thisFeedProperties){
             foreach($thisFeedProperties['records'] as $item){
                 echo "<div class='feedRecordDisplayEach'>";
                 echo "<div class='feedRecordDisplayEachInner'>";
-                echo "<b><a href='".$item['Feedrecord']['link']."'>".$item['Feedrecord']['title']."</a></b><br /><br />";
+                echo "<b>".$item['Feedrecord']['title']."</b><br /><br />";
                 echo $item['Feedrecord']['description'];
                 echo "<br />";
                 echo "</div>";
