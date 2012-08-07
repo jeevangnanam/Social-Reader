@@ -64,8 +64,9 @@ class FeedrecordsController extends AppController {
 				if(isset($channelDetails['appicon']) or $channelDetails['appicon'] != ''){
 				$this->set('icon',"http://".$_SERVER['SERVER_NAME']."/appproperties/".$channelDetails['name']."/img/"."favicon.ico");
 				}
-				
-				$this->set('description', $feedrecord['Feedrecord']['description']);
+				$description = $feedrecord['Feedrecord']['description'];
+				$description = preg_replace("/<img[^>]+\>/i", " ", $description);
+				$this->set('description',$description );
 	}
 
         /**
