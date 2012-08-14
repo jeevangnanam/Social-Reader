@@ -13,6 +13,10 @@ class FeedrecordsController extends AppController {
 		var $Facebookresponse;
 	
      public function beforeFilter(){
+		 
+		 $this->Auth->allow('givefeedrecordsforurl','sharev2');
+		 $this->Security->validatePost = false;
+        $this->Security->csrfCheck = false;
          App::import('Model', 'ChannelsReader');
 		 $this->ChannelsReader = new ChannelsReader();
 		 App::import('Model', 'Facebookresponse');
@@ -59,13 +63,24 @@ class FeedrecordsController extends AppController {
                         }
                  $this->set('appId',$channelDetails['app_id']);
                 $this->set('url',"http://".$_SERVER['SERVER_NAME']."/feedrecords/view/".$feedrecord['Feedrecord']['id']);
-                $this->set('socialOn',  $this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id']));
+				//*-------
+			
+				 $socialSatusForNews=$this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id']);
+				   //var_dump($socialSatusForNews);
+				   if($socialSatusForNews === NULL){
+					   $socialSatusForNews=true;
+					}
+				//$this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id'])
+                   $this->set('socialOn',  $socialSatusForNews);
+				//*-------
+                //$this->set('socialOn',  $this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id']));
                 $this->set('user',$user['id']);
 				if(isset($channelDetails['appicon']) or $channelDetails['appicon'] != ''){
 				$this->set('icon',"http://".$_SERVER['SERVER_NAME']."/appproperties/".$channelDetails['name']."/img/"."favicon.ico");
 				}
-				
-				$this->set('description', $feedrecord['Feedrecord']['description']);
+				$description = $feedrecord['Feedrecord']['description'];
+				$description = preg_replace("/<img[^>]+\>/i", " ", $description);
+				$this->set('description',$description );
 	}
 
         /**
@@ -93,8 +108,13 @@ class FeedrecordsController extends AppController {
                     
 
                 }else{
-               // die(debug($this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id'])));
-                   $this->set('socialOn',  $this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id']));
+                   $socialSatusForNews=$this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id']);
+				   //var_dump($socialSatusForNews);
+				   if($socialSatusForNews === NULL){
+					   $socialSatusForNews=true;
+					}
+				//$this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id'])
+                   $this->set('socialOn',  $socialSatusForNews);
                 }
                 
                 $this->set('user',$user['id']);
@@ -128,10 +148,10 @@ class FeedrecordsController extends AppController {
 
 			$maxShare=$ms[0]['ChannelsReader']['maxshareperday'];
 			if($maxShare == 0){
-				$maxShare=3;
+				$maxShare=5;
 			}
-			
-if($this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id'] ) === 1 or  $this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id'])=== false ){
+			//var_dump($this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id'] ));
+if($this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id'] ) === 1 or  $this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id'])=== false or $this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id'] ) === NULL){
 	
                 if(isset($id) and (int)$r[0][0]['count'] < $maxShare){
 					
@@ -227,4 +247,31 @@ if($this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id']
 		$this->Session->setFlash(__('Feedrecord was not deleted'));
 		$this->redirect(array('action' => 'index'));
 	}
+	
+	
+	
+
+	
+	
+	public function sharev2(){
+		
+		$res= $this->Feedrecord->sharev2($this->request->query['url']);
+		
+		}
+		
+	public function givefeedrecordsforurl(){
+
+			$this->autoRender = false;    	
+		
+			
+			$res= $this->Feedrecord->sharev2($this->request->query['url']);
+		
+			$url = rawurldecode();
+			
+			$urlProperties = $this->Feedrecord->getFeedRecordsByUrl($url);
+			echo json_encode($urlProperties['Feedrecord']);
+			
+			///echo json_encode($url);
+		
+		}
 }

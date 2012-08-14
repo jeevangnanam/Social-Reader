@@ -1,5 +1,5 @@
 
-<div id="fb-root"></div>
+<!--<div id="fb-root"></div>
     <script>
 
     // Load the SDK Asynchronously
@@ -11,3 +11,7 @@
     }(document));
   </script>
   <script src="http://socialreader-dev.com/toolbars/index/" ></script>
+  
+  -->
+  
+  <iframe src="http://globalsocialreader.com/toolbars/iframe/1" width="300" height="70" border='0'  scrolling="no"></iframe>

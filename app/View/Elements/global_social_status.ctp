@@ -19,12 +19,12 @@ if($globalSocialStatusForThisApp == true){
 
 <div id="postPerDay">
 This app may share some of the article you read on this site.
-Maximum number of the articles per days is 
+Maximum number of the articles you can share per day is 
 
-<div class='imageHolder' style="margin-top:10px;">
+  <div class='imageHolder' style="margin-top:10px;">
 <select name="changeGlobalShareNumber" id="changeGlobalShareNumber" rel="<?php echo $channelId; ?>" style="height:25px;width:45px;border:solid 1px #B4C9F1">
 
-<?php for($a =1; $a<4 ;$a++): ?>
+<?php for($a =1; $a<6 ;$a++): ?>
 <option id="<?php echo $a;?>" <?php if($globalShareLimitForTheChannel == $a) echo ' selected = \"selected\"';?>"><?php echo $a; ?></option>
 
 <?php endfor; ?>

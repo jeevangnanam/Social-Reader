@@ -32,7 +32,7 @@
             <div id="header" class="container_16">
                 <div class="grid_16">
                     <div id="applogo" style="float:left;margin-right:10px;"><img src="<?php echo $appLogo; ?>"  style=""/></div>
-                    <div style="padding-top: 30px;"><h3 class="site-title"><?php echo $this->Html->link(Configure::read('Site.title'), '/', array('style' => 'text-decoration:none')); ?></h1>
+                    <div style="padding-top: 30px;"><h3 class="site-title"><?php echo Configure::read('Site.title'); ?></h1>
                             <span class="site-tagline"><?php echo Configure::read('Site.tagline'); ?></span>
                     </div>
                 </div>
@@ -65,7 +65,20 @@
                     <?php //echo $this->Layout->blocks('right'); ?>
                 </div>
 
+                <!--friend and like list-->
+                <div id="sidebar" class="grid_5">
+                   <?php echo $this->element('appusers'); ?>
+                    <?php //echo $this->Layout->blocks('right'); ?>
+                </div>
+                
+                 <!--Recent share list-->
+                <div id="sidebar" class="grid_5">
+                   <?php echo $this->element('recentshares'); ?>
+                    <?php //echo $this->Layout->blocks('right'); ?>
+                </div>
+                
                 <div class="clear"></div>
+                
             </div>
 
             <div id="footer">

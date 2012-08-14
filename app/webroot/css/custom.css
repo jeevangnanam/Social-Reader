@@ -146,3 +146,9 @@ margin-right: 10px;
 .showStatus{
 	float:right;
 	}
+.showStatusRecentShares{
+	float:right;
+	}
+.removepost{
+	cursor:pointer;
+}

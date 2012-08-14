@@ -6,7 +6,11 @@ $("#content > div:not(:first-child)").hide();
 $('a[rel*=facebox]').facebox();
 
 
+$("#tester").click(function(){
 
+	linkProperties = getLinkProperties(this);
+	
+	});
 
 $(".mainMenuLink").click(function(){
 
@@ -90,6 +94,7 @@ $("#changeGlobalSocialVisibility").click(function(){
 
 $(document).bind('reveal.facebox', function() {
 $("#shareIt").click(function(){
+
 var shareIt = $(this);
 var channelId=$(this).attr('rel');
 $.get("/feedrecords/shareit/"+ $(this).attr('rel'), function(data){
@@ -109,16 +114,14 @@ $.get("/feedrecords/shareit/"+ $(this).attr('rel'), function(data){
 			
 			}
         FB.api('/me/adanews:preview', 'post', params, function(response) {
-            console.log(response);
-            console.log(title);
-			console.log(url);
 			
           if (!response || response.error) {
            $("#test").text(response.error);
           } else {
             //$("#test").text("id : "+response.id);// read the response ID -lasantha
 			$.post('/facebookresponses/saveresponses/',{ channel: channelId,response:response.id}, function(data) {
-			 // $("#test").text(data);
+				var li="<li id=\""+response.id+"_li\">"+ title +"<img id=\""+ response.id +"\" class='removepost' alt='' src='/img/remove-share-button.jpg\'></li>";
+			 $("#r-shares").append(li);
 			});
 			//window.location.replace(url);
           }
@@ -134,10 +137,48 @@ $.get("/feedrecords/shareit/"+ $(this).attr('rel'), function(data){
 
 
 
-
+$(".removepost").live('click',function(){
+	loadLoader('.showStatusRecentShares');
+	var r_id=this.id;
+	FB.api(
+             r_id,
+               'delete',
+                function(response) {
+                 if (!response || response.error) {
+					   removeLoader('.showStatusRecentShares');
+                       return false
+                 } else {
+                     $.post('/facebookresponses/daleteresponses/'+r_id, function(data) {
+						 if(data==1 || data==true){
+					 		$('#'+r_id+"_li").remove();
+							removeLoader('.showStatusRecentShares');
+						 }
+					});
+                  }
+     });
+            
+});
 
 });
 
+//**//
+$('.changeFeedrecordSocialStatuso').live('click',function(){
+	var thisobj = $(this);
+	$.get("/feedsocialsettings/onoffsocial/"+ $(this).attr('rel'), function(data){
+	
+		if(data == 0){
+		  
+		  thisobj.attr({src: "/img/icons/off_small.jpg"});
+		}else{
+		   thisobj.attr({src: "/img/icons/on_small.jpg"});
+		}
+	});
+	
+	
+	
+	
+});
+//**//
 
 
 
@@ -164,3 +205,13 @@ function checkLikes(likes,pageid){
 		});	
 	}
 }
+
+
+function getLinkProperties(linkurl){
+	
+			$.post("/feedrecords/givefeedrecordsforurl/",{url : encodeURIComponent(linkurl)}, function(data){
+			console.log(data);
+		});
+	
+	}
+
