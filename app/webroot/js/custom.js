@@ -103,18 +103,18 @@ $.get("/feedrecords/shareit/"+ $(this).attr('rel'), function(data){
 			return false;	
 		}
         var title = data.title;
-        var url   = data.url;
+        var url   = data.directUrl;
         var image = data.image;
   
 		if(image == null || image == ''){
-			var params =  {title : title,article : url};
+			var params =  {article : url};
 			
 		}else{
-			var params =  { title: title, article : url, image: image };
+			var params =  {article : url };
 			
 			}
         FB.api('/me/adanews:preview', 'post', params, function(response) {
-			
+			console.log(response.error);
           if (!response || response.error) {
            $("#test").text(response.error);
           } else {

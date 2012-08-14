@@ -167,12 +167,12 @@ function getLinkProperties(linkurl){
 		
 		
 		
-	 linkurl = "http://sinhala.adaderana.lk/news.php?nid=26528";
+/*	 linkurl = "http://sinhala.adaderana.lk/news.php?nid=26528";
 			$.ajax("http://www.globalsocialreader.com/feedrecords/givefeedrecordsforurl/",{ url: encodeURIComponent(linkurl)}, function(data){
 				//$.post("http://www.globalsocialreader.com/feedrecords/test/",{ url: encodeURIComponent(linkurl)}, function(data){
 	
 			
-		});
+		});*/
 	
 	}
 

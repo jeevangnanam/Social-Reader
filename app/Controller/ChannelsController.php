@@ -118,6 +118,7 @@ class ChannelsController extends AppController {
         }
 
         $facebookAppProperties = json_decode(file_get_contents("https://graph.facebook.com/" . $appId));
+		
         $this->Session->write('facebookAppProperties', $facebookAppProperties);
 
         if ($channelDetails['applogo'] == '' or is_null($channelDetails['applogo']) or empty($channelDetails['applogo'])) {
@@ -224,7 +225,7 @@ class ChannelsController extends AppController {
             $feedForView[$counter]['feedId'] = $feed['Feed']['id'];
 
             $this->Feedrecord->recursive = -1;
-            $feedRecords = $this->Feedrecord->find('all', array('conditions' => array('feed_id' => $feed['Feed']['id']),'order'=>array('Feedrecord.id'=>'DESC')));
+            $feedRecords = $this->Feedrecord->find('all', array('conditions' => array('feed_id' => $feed['Feed']['id']),'order'=>array('Feedrecord.id'=>'DESC'),'limit' => 10));
             $feedForView[$counter]['records'] = $feedRecords;
         }
 
@@ -256,13 +257,23 @@ class ChannelsController extends AppController {
 		foreach($channel_readers as $channel_reader){
 			$arrayChannelReaders[]=$channel_reader['ChannelsReader']['facebook_id'];
 		}
-		$fList=array();
-		$friends=$facebook->api('/me/friends');
+		// End get app users
 		
-		foreach($friends['data'] as $friend){
-			$fList[]=$friend['id'];
-		}
-		$appUsersFriends=array_intersect($fList,$arrayChannelReaders);
+		//Get appusers from facebook
+		
+		$friendReaders = $facebook->api('/me/friends?fields=installed');
+		
+		   foreach($friendReaders['data'] as $friendReader){
+			   
+			   if(isset($friendReader['installed'])){
+			   $appUsersFriends[] = $friendReader['id'];
+			   }
+			   }
+		
+	
+		
+		
+		
 		$facebook_id=$facebook->api('/me');
 		$recentShares=$Facebookresponse->lastTenShares($channelId,$facebook_id['id']);
 		//debug($recentShares);
@@ -276,7 +287,7 @@ class ChannelsController extends AppController {
         $this->set('globalShareLimitForTheChannel' ,$globalShareLimitForTheChannel);
 		$this->set('userProfile', $user_profile);
 		$this->set('likes',$likes);
-		$this->set('appUsers',count($arrayChannelReaders));
+		$this->set('appUsers',$facebookAppProperties->monthly_active_users);
 		$this->set('appUsersFriends',$appUsersFriends);
 		$this->set('recentShares',$recentShares);/**/
     }

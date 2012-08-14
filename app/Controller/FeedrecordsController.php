@@ -166,6 +166,7 @@ if($this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id']
                         }
 
                         $data['url'] = $url = "http://".$_SERVER['SERVER_NAME']."/feedrecords/view/".$res['Feedrecord']['id'];
+						$data['directUrl'] = $res['Feedrecord']['link'];
                         $data['title'] = $title;
                         if(isset($image)){
                         $data['image'] = $image;
@@ -254,13 +255,13 @@ if($this->Feedsocialsetting->checkSocialStatusOfFeedRecordOfUser($id,$user['id']
 	
 	
 	public function sharev2(){
-		
+		return false;
 		$res= $this->Feedrecord->sharev2($this->request->query['url']);
 		
 		}
 		
 	public function givefeedrecordsforurl(){
-
+return false;
 			$this->autoRender = false;    	
 		
 			
