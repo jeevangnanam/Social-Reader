@@ -10,7 +10,7 @@
             'reset',
             '960',
             'theme',
-            'custom',
+            '/appproperties/adaderana/css/custom',
             '/js/facebox/src/facebox'
         ));
         echo $this->Layout->js();
