@@ -7,12 +7,14 @@ App::uses('AppController', 'Controller');
  */
 class ChannelsReadersController extends AppController {
 
-
+ 	var $components = array('RequestHandler');
 
     function  beforeFilter() {
         parent::beforeFilter();
 
-        $this->Auth->allow(array('setNewShareLimit','onOffGlobalSocialStatus','getCurrentPostShareLimit'));
+		$this->Security->validatePost = false;
+        $this->Security->csrfCheck = false;
+        $this->Auth->allow(array('setNewShareLimit','onOffGlobalSocialStatus','getCurrentPostShareLimit','checkCurrentSocialStatusForChannel'));
     }
 
 /**
@@ -66,6 +68,25 @@ class ChannelsReadersController extends AppController {
 
 
         }
+		
+		public function checkCurrentSocialStatusForChannel(){
+			$this->autoRender =  false;
+			
+			    $facebookId = isset($_POST['user'])?trim($_POST['user']): NULL;
+				$channelId = isset($_POST['channel'])?trim($_POST['channel']): NULL;
+				if(isset($facebookId) && isset($channelId)){
+			
+					if($this->RequestHandler->isAjax()){
+						
+						return   json_encode($this->ChannelsReader->checkCurrentSocialStatusForChannel($facebookId, $channelId));
+					}
+					
+					 return $this->ChannelsReader->checkCurrentSocialStatusForChannel($facebookId, $channelId);
+					 
+				}
+				
+				return false;
+			}
 
 
 }

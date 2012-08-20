@@ -29,11 +29,11 @@
 <file name="BlocksController.php" server="www.lankaphpgroup.com/socialreader/" local="129862481400000000" remote="129862481400000000" />
 <file name="AttachmentsController.php" server="www.lankaphpgroup.com/socialreader/" local="129862481400000000" remote="129862481400000000" />
 <file name="AppController.php" server="www.lankaphpgroup.com/socialreader/" local="129862481400000000" remote="129862481400000000" />
-<file name="FacebookresponsesController.php" server="globalsocialreader.com/socialreader/" local="129881949000000000" remote="129883323600000000" />
+<file name="FacebookresponsesController.php" server="globalsocialreader.com/socialreader/" local="129895900520307672" remote="129895507800000000" />
 <file name="FeedsocialsettingsController.php" server="globalsocialreader.com/socialreader/" local="129886679400000000" remote="129886679400000000" />
 <file name="ToolbarsController.php" server="globalsocialreader.com/socialreader/" local="129889767898128784" remote="129889317600000000" />
 <file name="FeedrecordsController.php" server="globalsocialreader.com/socialreader/" local="129894177010000000" remote="129893727000000000" />
-<file name="CroneController.php" server="globalsocialreader.com/socialreader/" local="129888431573537834" remote="129887981400000000" />
+<file name="CroneController.php" server="globalsocialreader.com/socialreader/" local="129895761800563356" remote="129895311600000000" />
 <file name="AppController.php" server="globalsocialreader.com/socialreader/" local="129862229400000000" remote="129862229400000000" />
 <file name="AttachmentsController.php" server="globalsocialreader.com/socialreader/" local="129862229400000000" remote="129862229400000000" />
 <file name="BlocksController.php" server="globalsocialreader.com/socialreader/" local="129862229400000000" remote="129862229400000000" />
@@ -55,7 +55,7 @@
 <file name="VocabulariesController.php" server="globalsocialreader.com/socialreader/" local="129862229400000000" remote="129862229400000000" />
 <file name="FeedsController.php" server="globalsocialreader.com/socialreader/" local="129865090800000000" remote="129865090800000000" />
 <file name="ChannelsettingsController.php" server="globalsocialreader.com/socialreader/" local="129874905000000000" remote="129874905000000000" />
-<file name="ChannelsreadersController.php" server="globalsocialreader.com/socialreader/" local="129875925000000000" remote="129875925000000000" />
+<file name="ChannelsreadersController.php" server="globalsocialreader.com/socialreader/" local="129899144754575716" remote="129898694400000000" />
 <file name="TestController.php" server="globalsocialreader.com/socialreader/" local="129877617000000000" remote="129877617000000000" />
-<file name="ChannelsController.php" server="globalsocialreader.com/socialreader/" local="129894193392990513" remote="129893743200000000" />
+<file name="ChannelsController.php" server="globalsocialreader.com/socialreader/" local="129895968656294828" remote="129895518600000000" />
 </dwsync>

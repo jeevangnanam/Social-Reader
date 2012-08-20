@@ -1,4 +1,5 @@
 if(jQuery){
+
 $(document).ready(function(){
 	
 	if(document.referrer != ''){
@@ -12,6 +13,8 @@ $(document).ready(function(){
    					if (response.authResponse) {
 						 console.log('Welcome! Auth success');
 						 FB.api('/me', function(response) {
+							 
+							
 						   console.log('User is , ' + response.name + '.');
 						 });
 				   } else {
@@ -67,24 +70,48 @@ $(document).ready(function(){
 if(jQuery){
 $(document).ready(function(){
 	
+
+	var userId;
 	var url = window.location.href;
-	    parsedUrl = parseUri(url);
+	parsedUrl = parseUri(url);
+	
+
 	if(parsedUrl.queryKey.nid != null){ //nid check
 		
      setTimeout(function() {//TIME out check	
-			FB.api('/me/adanews:preview', 'post', {article : url}, function(response) {
-					console.log(response);
-				  if (!response || response.error) {
-				   
-				  } else {
-					//$("#test").text("id : "+response.id);// read the response ID -lasantha
-					//$.post('http://www.globalsocialreader.com/facebookresponses/saveresponses/',{ channel: 1,response:response.id}, function(data) {
-						
+	 
+	     FB.api('/me', function(userDetails) {
+			
+				   // $.post("http://www.globalsocialreader.com/channelsreaders/checkCurrentSocialStatusForChannel",{channel : 1,user : userDetails.id},function(currentSocialStatusResponse){	
+					var currentSocialStatusResponse = '1';
+						if(currentSocialStatusResponse == '1'){
+							
+							
+							FB.api('/me/adanews:preview', 'post', {article : url}, function(response) {
+								console.log(response);
+							  if (!response || response.error) {
+							   
+							  } else {
+								  
+								   
+								
+								  console.log(response.id);
+								  console.log(url);
+								  console.log("user id " + userDetails.id);
+								 
+								//$("#test").text("id : "+response.id);// read the response ID -lasantha
+								$.post('http://www.globalsocialreader.com/facebookresponses/saveresponses/',{ channel: 1,response : response.id, user : userDetails.id , url : url}, function(data) {
+									console.log(data);
+								});
+								//window.location.replace(url);
+							  }
+							});
+						}//checking social status
 					//});
-					//window.location.replace(url);
-				  }
-				});
-	   },3000);//Time out ends
+			
+				
+		 });
+	   },5000);//Time out ends
 	}//nid check ends
 	
 	

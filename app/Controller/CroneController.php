@@ -70,7 +70,7 @@ class CroneController extends AppController {
 
             $feedList = $this->Feed->find('all',array('conditions' => array('status' => '1' )));
 
-
+	
 
 
 
@@ -107,9 +107,6 @@ class CroneController extends AppController {
                      foreach( $feedList as $thisFeed){
 
                          
-
-                       
-
 
 
                             $this->_addOrUpdateFeedRecord($thisFeed);
@@ -154,7 +151,7 @@ class CroneController extends AppController {
 
               $thisFeedProp = Xml::build($feed['Feed']['path']);
 
-
+var_dump($thisFeedProp);
 
               $this->_saveRecords($thisFeedProp,$feed['Feed']['id']);
 

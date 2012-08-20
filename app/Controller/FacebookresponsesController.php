@@ -48,25 +48,20 @@ class FacebookresponsesController extends AppController {
 	}
 	
 	public function saveresponses(){
+	
 		 $this->layout = 'ajax';
 		$this->autoRender = false;
         $user = $this->Session->read('user');
 		
-        $channelId = $_POST['channel'];
-		$feed_id   = $channelId;
+        $channelId = trim($_POST['channel']);
+		$userId = trim($_POST['user']);
+		$response = trim($_POST['response']);
+		$url 	 = trim($_POST['url']);
+	
 		
-		$response =	$_POST['response'];
-		$feedRecord="";
-		$channelDetails = $this->Session->read('channelDetails');
-			if(!isset($channelDetails) or empty($channelDetails)) {
-                 $res = $this->Feedrecord->find('all',array('conditions' => array('Feedrecord.id' => $id)));
-				 debug($res);
-				 $channelDetails= ($res[0]['Feed']['Channel']);
-				 $feedRecord = ($res[0]['Feedrecord']['title']);
-			 }
-		$channelId=$channelDetails['id'];
+
 		
-		$sres=$this->Facebookresponse->addFacebookResponse($user['id'], $channelId,$response,$feed_id);
+		$sres=$this->Facebookresponse->addFacebookResponse($userId, $channelId,$response,$url);
 		
 		if($sres){
 			echo true;

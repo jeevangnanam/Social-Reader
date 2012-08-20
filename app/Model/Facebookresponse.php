@@ -43,12 +43,9 @@ class Facebookresponse extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'Feed' => array(
-			'className' => 'Feed',
-			'foreignKey' => 'feed_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
+		'url' => array(
+			
+			
 		)
 	);
 
@@ -68,30 +65,18 @@ class Facebookresponse extends AppModel {
 			'fields' => '',
 			'order' => ''
 		),
-		'Channel' => array(
-			'className' => 'Channel',
-			'foreignKey' => 'channel_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		),
-		'Feedrecord' => array(
-			'className' => 'Feedrecord',
-			'foreignKey' => 'feedrecord_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		)
+		
+		
 	);
 	
-	public  function addFacebookResponse($facebook_id,$channel_id,$response,$feed_id){
+	public  function addFacebookResponse($facebook_id,$channel_id,$response,$url){
 
             if(isset($facebook_id) and isset($channel_id) and isset($response)){
             $data = array('Facebookresponse' => array(
 				'response' => $response,
                 'facebook_id' => $facebook_id,
                 'channel_id'  => $channel_id,
-				'feedrecord_id'  => $feed_id,
+				'url'  => $url,
 				'read' => date('Y-m-d h:m:s'),
 				'status' => 1,
             ));

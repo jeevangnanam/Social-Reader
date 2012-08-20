@@ -1,12 +1,13 @@
 body{
 	
 	font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+	background-color: #FDE8EB;
 
 	}
 .feedRecordDisplayEach{
 
-    border: solid 1px  #d0d2d3;
-    background-color:  #ebedee;
+    border: solid 1px  #F3A5A3;
+    background-color:  white;
     -moz-border-radius:6px;
 border-radius:6px;
 margin-bottom: 4px;
@@ -102,8 +103,8 @@ padding-right:10px;
 	}
 #globalConfigurations{
 	margin-top: 30px;
- border: solid 1px  #d0d2d3;
-    background-color:  #ebedee;
+ border: solid 1px  #F3A5A3;
+    background-color:  white;
     -moz-border-radius:3px;
 	-webkit-border--radius: 3px;
 border-radius:3px;

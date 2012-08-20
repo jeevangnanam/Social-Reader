@@ -12,7 +12,7 @@ foreach($feedForView as $thisFeedProperties){
                 echo $item['Feedrecord']['description'];
                 echo "<br />";
                 echo "</div>";
-                echo "<div style='clear:both'></div><div id='toolbar'>"."<a href='#' rel='".$item['Feedrecord']['id']."' class='showPreRouteBox'><img src='/img/icons/read-more-button.jpg' /></a>"."</div>";
+                echo "<div style='clear:both'></div><div id='toolbar'>"."<a href='#' rel='".$item['Feedrecord']['id']."' class='showPreRouteBox'><img src='/appproperties/". $layout."/img/read-more-button.jpg' /></a>"."</div>";
                 echo "</div>";
             }
 
