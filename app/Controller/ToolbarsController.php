@@ -53,6 +53,7 @@ class ToolbarsController extends AppController {
 
         if ($checkFacebook) {
             if ($user) {
+				$this->set('facebook_installed', 'yes');
                 try {
 
 

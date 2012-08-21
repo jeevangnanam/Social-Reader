@@ -15,7 +15,7 @@
        <?php if(isset($image)): ?>
         <meta property="og:image" content="<?php echo $image; ?>" />
         <?php endif; ?>
-        <meta property="og:site_name" content="DailyMirror.com"/>
+        
         <meta property="og:url" content="<?php echo $url; ?>" />
         
 

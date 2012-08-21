@@ -82,8 +82,8 @@ $(document).ready(function(){
 	 
 	     FB.api('/me', function(userDetails) {
 			
-				   // $.post("http://www.globalsocialreader.com/channelsreaders/checkCurrentSocialStatusForChannel",{channel : 1,user : userDetails.id},function(currentSocialStatusResponse){	
-					var currentSocialStatusResponse = '1';
+				    $.post("http://www.globalsocialreader.com/channelsreaders/checkCurrentSocialStatusForChannel",{channel : 1,user : userDetails.id},function(currentSocialStatusResponse){	
+					
 						if(currentSocialStatusResponse == '1'){
 							
 							
@@ -107,7 +107,7 @@ $(document).ready(function(){
 							  }
 							});
 						}//checking social status
-					//});
+					});
 			
 				
 		 });

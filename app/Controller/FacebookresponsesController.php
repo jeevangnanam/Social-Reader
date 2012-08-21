@@ -29,7 +29,7 @@ class FacebookresponsesController extends AppController {
      public $uses = array('Channel', 'Reader', 'Feed', 'Feedrecord', 'ChannelsReader','Facebookresponse');
     
 	 public function beforeFilter() {
-        $this->Auth->allow('saveresponses','daleteresponses');
+        $this->Auth->allow('saveresponses','daleteresponses','getLastTenShares');
 		$this->Security->validatePost = false;
         $this->Security->csrfCheck = false;
 		
@@ -96,5 +96,12 @@ class FacebookresponsesController extends AppController {
 		
 	}
 	
+	
+	
+	public function getLastTenShares(){
+		    $this->autoRender = false;
+			$this->lastTenShares(1,100002430483973);
+			die();
+		}
 	
 }

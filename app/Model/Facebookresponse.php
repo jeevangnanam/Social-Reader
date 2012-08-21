@@ -68,7 +68,7 @@ class Facebookresponse extends AppModel {
 		
 		
 	);
-	
+
 	public  function addFacebookResponse($facebook_id,$channel_id,$response,$url){
 
             if(isset($facebook_id) and isset($channel_id) and isset($response)){
@@ -91,7 +91,11 @@ class Facebookresponse extends AppModel {
 			
 		}
 	public function lastTenShares($id,$facebook_id){
-		return $this->find('all',array('conditions'=>array('Facebookresponse.status'=>1,'Facebookresponse.facebook_id'=>$facebook_id,'Facebookresponse.channel_id'=>$id),'limit'=>10));
+		
+		$res  =  $this->find('all');
+		var_dump($res);
+		
+		//foreach($res as $res['Facebookresponse']
 		//'fileds'=>array('Facebookresponse.response','Facebookresponse.feed_id','Feedrecord.title'),,
 	}
 	
@@ -107,4 +111,6 @@ class Facebookresponse extends AppModel {
             return false;
             
      }
+	 
+	
 }

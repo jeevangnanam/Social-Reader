@@ -59,8 +59,7 @@ class ChannelsController extends AppController {
 
         $this->Security->validatePost = false;
         $this->Security->csrfCheck = false;
-        $this->set('title_for_layout', 'Daily mirror social reader');
-        $this->layout = 'dailymirror';
+      
     }
 
     /**

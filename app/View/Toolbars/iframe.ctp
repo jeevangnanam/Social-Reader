@@ -1,5 +1,5 @@
 <?php
-if($globalSocialStatusForThisApp == true){
+if(isset($globalSocialStatusForThisApp) && $globalSocialStatusForThisApp == true){
 	
 	$img = 'on.png';
 	}else{
