@@ -99,9 +99,25 @@ class FacebookresponsesController extends AppController {
 	
 	
 	public function getLastTenShares(){
+		//Configure::write('debug', 2);
 		    $this->autoRender = false;
-			$this->lastTenShares(1,100002430483973);
-			die();
+			
+			if(isset($_POST['userId']) and isset($_POST['channelId'])){
+				
+				$shares = $this->Facebookresponse->lastTenShares(trim($_POST['channelId']),trim($_POST['userId']));
+				
+				if(is_array($shares) and count($shares)>0){
+					
+					foreach($shares as $share){
+						
+						$styledShare[] = "<li id=".$share['response']."_li>".$share['title']." <img src='/img/icons/close.jpg' rel='".$share['response']."' id='removeShare' title='Remove social graph activity' style='cursor:pointer'/></li>";
+						
+						}
+					return json_encode($styledShare);
+					}
+			
+			}
+			return false;
 		}
 	
 }

@@ -73,7 +73,7 @@
                 
                  <!--Recent share list-->
                 <div id="sidebar" class="grid_5">
-                   <?php //echo $this->element('recentshares'); ?>
+                   <?php echo $this->element('recentshares'); ?>
                     <?php //echo $this->Layout->blocks('right'); ?>
                 </div>
                 

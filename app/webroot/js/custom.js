@@ -6,6 +6,43 @@ $("#content > div:not(:first-child)").hide();
 $('a[rel*=facebox]').facebox();
 
 
+
+
+
+//load the last ten shares
+setTimeout(function() {
+	
+	loadLoader(".showStatusRecentShares");
+	 FB.api('/me',function(user){
+		 	
+		 	var user = user.id;
+			var channel = 1;
+		 
+		 $.post("http://www.globalsocialreader.com/facebookresponses/getlasttenshares",{userId : user , channelId : channel},function(lastTenShares){
+			 
+			 
+			removeLoader(".showStatusRecentShares");
+				 
+				 shared = (jQuery.parseJSON(lastTenShares));
+			  for(var a=0; a<shared.length;a++){
+				 
+				 $("#r-shares").append(shared[a]);
+				 }
+			 
+			 });
+		
+		 
+		 });
+		
+	},3000);
+	
+	
+	
+	
+	
+	
+	
+	
 $("#tester").click(function(){
 
 	linkProperties = getLinkProperties(this);
@@ -137,13 +174,16 @@ $.get("/feedrecords/shareit/"+ $(this).attr('rel'), function(data){
 
 
 
-$(".removepost").live('click',function(){
+$("#removeShare").live('click',function(){
+	console.log('in');
 	loadLoader('.showStatusRecentShares');
-	var r_id=this.id;
+	var r_id=$(this).attr('rel');
+	console.log(r_id);
 	FB.api(
              r_id,
                'delete',
                 function(response) {
+					console.log(response);
                  if (!response || response.error) {
 					   removeLoader('.showStatusRecentShares');
                        return false
@@ -174,7 +214,14 @@ $('.changeFeedrecordSocialStatuso').live('click',function(){
 		}
 	});
 	
-	
+
+
+
+
+
+
+
+
 	
 	
 });

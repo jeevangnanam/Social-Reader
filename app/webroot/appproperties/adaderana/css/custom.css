@@ -153,3 +153,13 @@ margin-right: 10px;
 .removepost{
 	cursor:pointer;
 }
+#r-shares{
+	
+	padding: 7px;
+	}
+#r-shares li{
+	 list-style:disc;
+	 margin-top:5px;
+	 margin-bottom:2px;
+	 border-bottom:dotted #FFE9E6 1px;
+	}
