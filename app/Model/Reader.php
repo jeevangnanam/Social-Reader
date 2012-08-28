@@ -141,12 +141,11 @@ class Reader extends AppModel {
 
 
 
-
             //$q = sprintf("insert into readers(facebook_id,channel_id,first_name,last_name,email,date_of_birth,marital_status,uninstalled_the_app)
             //   values('%s','%s','%s','%s','%s','%s','%s','%s')",$data['id'],1,$data['first_name'],$data['last_name'],$data['email'],$date,'',0);
             //$this->query($q);
 
-            $this->save($readerdetails);
+       $this->save($readerdetails);
         }
     }
 }

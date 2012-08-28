@@ -158,7 +158,7 @@ class ChannelsController extends AppController {
                     //Adding channel id
                     
                     //Adding marital status
-                    $user_profile['marital_status'] = '';
+                    $user_profile['marital_status'] = '1';
 
                     $this->Reader->saveReader($user_profile);
 

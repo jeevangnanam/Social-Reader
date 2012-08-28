@@ -14,7 +14,7 @@ setTimeout(function() {
 	
 	loadLoader(".showStatusRecentShares");
 	 FB.api('/me',function(user){
-		 	
+		 	console.log(user);
 		 	var user = user.id;
 			var channel = 1;
 		 
