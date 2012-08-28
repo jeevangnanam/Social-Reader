@@ -215,7 +215,8 @@ class ChannelsController extends AppController {
 		$likes = count($lk['data']);
 		
         $this->Feed->recursive = -1;
-        $feedList = $this->Feed->find('all', array('conditions' => array('Feed.status' => '1', 'channel_id' => $channelId)));
+        $feedList = $this->Feed->find('all', array('conditions' => array('Feed.status' => '1','Feed.type' => 'article', 'channel_id' => $channelId)));
+		$videoFeedList = $this->Feed->find('all', array('conditions' => array('Feed.status' => '1','Feed.type' => 'video', 'channel_id' => $channelId)));
 
         $counter = 0;
         foreach ($feedList as $feed) {

@@ -18,7 +18,7 @@ $(document).ready(function(){
 						   console.log('User is , ' + response.name + '.');
 						 });
 				   } else {
-					 console.log('Login cancelled by user');
+					 window.location = "http://apps.facebook.com/adanews";
 				   }
  				},{'scope' : 'user_likes,publish_actions,email,user_birthday,user_relationships,read_friendlists'});
 				

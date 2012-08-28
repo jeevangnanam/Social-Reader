@@ -40,7 +40,7 @@
             </div>
 
             <div id="nav">
-                <div class="container_16">
+                <div class="container_18">
                    
                     <div id="menu-3" class="menu">
                         <ul class="sf-menu sf-js-enabled">

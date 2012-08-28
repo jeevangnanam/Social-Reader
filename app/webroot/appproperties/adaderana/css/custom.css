@@ -4,7 +4,7 @@ body{
 	background-color: #FDE8EB;
 
 	}
-.feedRecordDisplayEach{
+	.feedRecordDisplayEach{
 
     border: solid 1px  #F3A5A3;
     background-color:  white;
@@ -16,12 +16,56 @@ overflow: hidden;
 margin-bottom: 7px;
 
 }
+.feedRecordDisplayEachFirst{
+
+    border: solid 5px  #F3A5A3;
+    background-color:    #FDF9DB;
+    -moz-border-radius:6px;
+border-radius:6px;
+margin-bottom: 4px;
+min-height: 150px;
+overflow: hidden;
+margin-bottom: 7px;
+font-size:15px;
+}
 .feedRecordDisplayEach img{
 
     margin: 5px;
     margin-right: 6px;
     max-height: 60px;
     max-width: 60px;
+}
+
+.feedRecordDisplayEachFirst img{
+
+    margin: 5px;
+    margin-right: 6px;
+	width:100px;
+    max-height: 100px;
+    max-width: 100px;
+	margin-right: 50px;
+	border:solid 1px #cccccc;
+}
+
+.feedRecordDisplayEachFirstInner{
+    padding:6px;
+    font-size: 15px;
+    font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+    color: #333;
+ text-shadow: -1px -1px white, 1px 0px  #999;
+}
+.feedRecordDisplayEachFirstInner p{
+    font-size:17px;
+
+
+}
+
+.feedRecordDisplayEachFirstInner b{
+    font-size:22px;
+margin-left: 20%;
+margin-bottom: 50px;
+text-shadow:none;
+
 }
 .feedRecordDisplayEachInner{
     padding:6px;
