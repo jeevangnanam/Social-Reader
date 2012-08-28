@@ -5,3 +5,25 @@ app/tmp/*
 app/config/database.php
 !empty
 
+
+/app/Controller/_notes/dwsync.xml
+/app/Model/_notes/dwsync.xml
+/app/Test/Case/Controller/_notes/dwsync.xml
+/app/webroot/js/_notes/dwsync.xml
+/app/webroot/img/icons/_notes/dwsync.xml
+/app/webroot/css/_notes/dwsync.xml
+/app/webroot/appproperties/default/img/_notes/dwsync.xml
+/app/webroot/appproperties/dailymirror/img/_notes/dwsync.xml
+/app/webroot/appproperties/dailymirror/css/_notes/dwsync.xml
+/app/webroot/appproperties/adaderana/img/_notes/dwsync.xml
+/app/webroot/_notes/dwsync.xml
+/app/View/Toolbars/_notes/dwsync.xml
+/app/View/Test/_notes/dwsync.xml
+/app/View/Layouts/_notes/dwsync.xml
+/app/View/Feedrecords/_notes/dwsync.xml
+/app/View/Elements/_notes/dwsync.xml
+/app/View/Channelsettings/_notes/dwsync.xml
+/app/View/ChannelsReaders/_notes/dwsync.xml
+/app/Test/Fixture/_notes/dwsync.xml
+/app/Test/Case/Model/_notes/dwsync.xml
+/app/webroot/img/_notes/dwsync.xml
